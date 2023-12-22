@@ -1,0 +1,53 @@
+<p-toast></p-toast>
+<p-dialog header="Error" [(visible)]="visible" [style]="{width: '50vw'}">
+    <h4>
+        {{msg.bad}}
+    </h4>
+</p-dialog>
+
+<div class="navBar">
+    <a class="accept" [routerLink]="['/list',accept]">Approved List</a>
+    <a class="reject" [routerLink]="['/list',reject]">Denied List</a>
+</div>
+
+<div *ngIf="loaderfunc()"> 
+  <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+</div>
+
+<div class="menu"  *ngIf="!toggleCard">
+    <p-toast></p-toast>
+    <p-menu #menu [model]="items" [popup]="true"></p-menu>
+    <button pButton type="button" (click)="menu.toggle($event)" icon="{{icon.filter}}" label="Sort by"></button>
+</div>
+
+<div class="home" *ngIf="!toggleCard">
+    <h1>Resumes</h1>
+    <p>{{msg.clickImg}}</p>
+    <div class="card-grid">
+        <ng-container *ngFor="let arr of dataApiArray; let i=index">
+            <p-card *ngIf="statusApi[i].status === 'Requested'" header="{{arr.name}}" subheader="{{arr.designation}}" [style]="{ width: '198px' }" class="card">
+                <ng-template pTemplate="header" class="img">
+                    <img alt="Card" [src]="arr.img" (click)="cardClick(arr.id);"/>
+                </ng-template>
+                
+                <p>
+                STATUS: <span [style]="{'color':'blue' }">{{statusApi[i].status}}</span>
+                </p>
+                <p>
+                EXP: <span>{{arr.experience}}&nbsp;</span>
+                AGE: <span>{{arr.age}}</span>
+                </p>
+                <p>
+                APPLIED ON: <span>  {{dateConversion(arr.dateApply)}}
+                </span>
+                </p>
+            <ng-template pTemplate="footer">    
+            </ng-template>
+            </p-card>
+        </ng-container>
+    </div>
+    
+    
+</div>
+<app-full-view *ngIf="toggleCard" [detailsArray]="idSpecificArr" (eventEmit)="toggleCard=$event" [statusArray]="idSpecificStatusArr" >
+</app-full-view>

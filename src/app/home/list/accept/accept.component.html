@@ -1,0 +1,11 @@
+<div class="field">
+    <h1>Approved Candidates</h1>
+    <p-fieldset legend="Candidate:{{i+1}}" [toggleable]="true" *ngFor="let details of detailsArray;let i=index" class="set">
+       <h2>{{details.name}}</h2>
+       <h3>{{details.designation}}</h3>
+       <p-button severity="success" label="Revert Status" (click)="revertStatus(details.id)" [routerLink]="['/home']"></p-button>
+    </p-fieldset>
+</div>
+<div class="home">
+    <p-button label="Get Back Home" [routerLink]="['/home']"></p-button>
+</div>

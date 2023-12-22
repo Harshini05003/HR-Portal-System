@@ -1,0 +1,7 @@
+<div *ngIf="loaderfunc()"> 
+    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+</div>
+<div>
+    <app-accept *ngIf="status==='accept'" [detailsArray]="acceptArr" [statusApi]="statusArray" ></app-accept>
+    <app-reject *ngIf="status==='reject'"[detailsArray]="rejectArr" [statusApi]="statusArray"></app-reject>
+</div>
